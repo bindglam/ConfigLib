@@ -1,11 +1,13 @@
 package com.bindglam.config;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -36,7 +38,7 @@ public abstract class Configuration {
         return field;
     }
 
-    protected <P, C> Field<C> createComplexField(String path, C defaultValue, Function<P, C> loadFunction, Function<C, P> saveFunction) {
+    protected <P, C> Field<C> createComplexField(String path, C defaultValue, Function<P, C> loadFunction, BiFunction<FileConfiguration, C, P> saveFunction) {
         ComplexField<P, C> field = new ComplexField<>(path, defaultValue, loadFunction, saveFunction);
         fields.add(field);
         return field;
